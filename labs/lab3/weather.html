@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather & Holidays</title>
+    <link rel="stylesheet" href="weather.css">
+</head>
+<body>
+    <header>
+        <h1 id="location">Determining your location...</h1>
+    </header>
+    <main>
+        <div class="box" id="weather-box">
+            <h2>Weather</h2>
+            <h2 id="condition">Loading...</h2>
+            <img id="icon" class="weather-icon" src="data:," alt=" ">
+            <p id="temperature" class="temp"></p>
+            <p id="humidity" class="detail"></p>
+            <p id="wind" class="detail"></p>
+        </div>
+        <div class="box" id="holidays-box">
+            <h2>Today's Holiday</h2>
+            <div id="holidays">Loading...</div>
+        </div>
+    </main>
+    <script src="weather.js"></script>
+</body>
+</html>
