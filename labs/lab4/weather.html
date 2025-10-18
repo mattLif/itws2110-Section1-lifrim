@@ -1,0 +1,291 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Troy, NY Weather & Holidays</title>
+<style>
+  :root {
+    --bg1: #0f172a;
+    --bg2: #1e3a8a;
+    --card: rgba(255, 255, 255, 0.07);
+    --accent: #60a5fa;
+    --muted: rgba(255,255,255,0.8);
+    --white: #fff;
+    font-family: "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+  }
+
+  html, body {
+    height: 100%;
+    margin: 0;
+    background: linear-gradient(to bottom right, var(--bg1), var(--bg2));
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    min-height: 100vh;
+  }
+
+  header {
+    width: 100%;
+    padding: 1rem;
+    background: rgba(0,0,0,0.4);
+    text-align: center;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 2px 8px rgba(0,0,0,0.3);
+    margin-bottom: 20px;
+  }
+
+  header h1 {
+    margin: 0;
+    font-size: 2rem;
+    color: var(--white);
+  }
+
+  main {
+    display: flex;
+    flex-direction: column;
+    gap: 16px;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 16px;
+    flex: 1;
+  }
+
+  section {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .card {
+    background: var(--card);
+    border-radius: 12px;
+    padding: 16px;
+    backdrop-filter: blur(5px);
+    box-shadow: 0 4px 12px rgba(0,0,0,0.3);
+    transition: transform 0.25s ease, filter 0.25s ease;
+  }
+
+  .card:hover {
+    transform: scale(1.03);
+    filter: brightness(1.1);
+  }
+
+  .weather { display: flex; align-items: center; justify-content: space-between; }
+  .weather-icon { font-size: 3rem; margin-right: 12px; }
+  .temp { font-size: 2.2em; font-weight: bold; }
+  .desc { text-transform: capitalize; color: var(--muted); }
+
+  .meta {
+    margin-top: 12px;
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    font-size: 0.95em;
+  }
+
+  .holiday, .fact {
+    text-align: center;
+    font-style: italic;
+    color: var(--muted);
+    height: 5em;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    padding: 0 8px;
+    overflow: hidden;
+  }
+
+  .buttons {
+    margin-top: 12px;
+    display: flex;
+    justify-content: center;
+    gap: 8px;
+  }
+
+  button {
+    background: transparent;
+    border: 1px solid var(--accent);
+    color: var(--white);
+    border-radius: 6px;
+    padding: 6px 12px;
+    cursor: pointer;
+    font-size: 0.9em;
+    transition: 0.2s;
+  }
+
+  button:hover {
+    background: var(--accent);
+  }
+
+  footer {
+    margin-top: 16px;
+    font-size: 0.85em;
+    color: var(--muted);
+    text-align: center;
+    padding-bottom: 16px;
+  }
+
+  .error {
+    color: #ffbbbb;
+    margin-top: 8px;
+    font-size: 0.9em;
+  }
+</style>
+</head>
+<body>
+
+<header>
+  <h1>🌤 Troy, NY — Weather & Holidays</h1>
+</header>
+
+<main>
+  <!-- WEATHER -->
+  <section class="card" id="weatherCard">
+    <h2>Current Weather</h2>
+    <div class="weather">
+      <div class="weather-icon" id="weather-icon">☀️</div>
+      <div>
+        <div class="temp" id="temp">--°F</div>
+        <div class="desc" id="desc">Loading...</div>
+      </div>
+    </div>
+    <div class="meta">
+      <span>Feels like: <b id="feels">--°F</b></span>
+      <span>Humidity: <b id="humidity">--%</b></span>
+      <span>Wind: <b id="wind">-- mph</b></span>
+      <span>Clouds: <b id="clouds">--%</b></span>
+    </div>
+    <div class="buttons">
+      <button id="refreshWeather">Refresh Weather</button>
+    </div>
+    <div id="weatherError" class="error" style="display:none;"></div>
+  </section>
+
+  <!-- HOLIDAYS -->
+  <section class="card">
+    <h2>Today's U.S. Holidays</h2>
+    <ul id="holiday-list" class="holiday"></ul>
+    <div class="buttons">
+      <button id="refreshHoliday">Refresh Holidays</button>
+    </div>
+  </section>
+
+  <!-- FUN FACT -->
+  <section class="card">
+    <h2>💡 Daily Fun Fact</h2>
+    <p id="fact-text" class="fact">Loading fact...</p>
+    <div class="buttons">
+      <button id="refreshFact">Refresh Fun Fact</button>
+    </div>
+  </section>
+</main>
+
+<footer>
+  Data from OpenWeatherMap, Nager.Date, and Useless Facts APIs
+</footer>
+
+<script>
+const lat = 42.7284;
+const lon = -73.6918;
+const weatherApiKey = "4bb9ed31d2c2545dcc76ccb949d0ec42";
+
+// Fit text to box
+function fitTextToBox(el, maxFontSize = 18, minFontSize = 10) {
+  let fontSize = maxFontSize;
+  el.style.fontSize = fontSize + "px";
+  while (el.scrollHeight > el.clientHeight && fontSize > minFontSize) {
+    fontSize -= 1;
+    el.style.fontSize = fontSize + "px";
+  }
+}
+
+// Weather fetch
+async function fetchWeather() {
+  const weatherErrorEl = document.getElementById("weatherError");
+  weatherErrorEl.style.display = "none";
+
+  try {
+    const res = await fetch(`https://api.openweathermap.org/data/2.5/weather?lat=${lat}&lon=${lon}&appid=${weatherApiKey}&units=imperial`);
+    if (!res.ok) throw new Error(`Weather API ${res.status}`);
+    const data = await res.json();
+
+    document.getElementById("temp").textContent = Math.round(data.main.temp) + "°F";
+    document.getElementById("desc").textContent = data.weather[0].description;
+    document.getElementById("feels").textContent = Math.round(data.main.feels_like) + "°F";
+    document.getElementById("humidity").textContent = data.main.humidity + "%";
+    document.getElementById("wind").textContent = Math.round(data.wind.speed) + " mph";
+    document.getElementById("clouds").textContent = data.clouds.all + "%";
+
+    const desc = data.weather[0].description.toLowerCase();
+    const iconEl = document.getElementById("weather-icon");
+    if (desc.includes("cloud")) iconEl.textContent = "☁️";
+    else if (desc.includes("rain")) iconEl.textContent = "🌧️";
+    else if (desc.includes("snow")) iconEl.textContent = "❄️";
+    else if (desc.includes("storm")) iconEl.textContent = "🌩️";
+    else if (desc.includes("mist") || desc.includes("fog")) iconEl.textContent = "🌫️";
+    else iconEl.textContent = "☀️";
+  } catch (err) {
+    document.getElementById("temp").textContent = "Error loading weather.";
+    weatherErrorEl.textContent = err.message;
+    weatherErrorEl.style.display = "block";
+  }
+}
+
+// Holidays fetch
+async function fetchHolidays() {
+  try {
+    const today = new Date();
+    const year = today.getFullYear();
+    const dateStr = today.toISOString().split("T")[0];
+
+    const res = await fetch(`https://date.nager.at/api/v3/PublicHolidays/${year}/US`);
+    if (!res.ok) throw new Error(`Holiday API ${res.status}`);
+    const holidays = await res.json();
+
+    const todayHolidays = holidays.filter(h => h.date === dateStr);
+    const list = document.getElementById("holiday-list");
+    list.innerHTML = "";
+
+    if (todayHolidays.length === 0) {
+      list.innerHTML = "<li>No holidays today.</li>";
+    } else {
+      todayHolidays.forEach(h => {
+        const li = document.createElement("li");
+        li.textContent = h.localName;
+        list.appendChild(li);
+      });
+    }
+  } catch {
+    document.getElementById("holiday-list").innerHTML = "<li>Error loading holidays.</li>";
+  }
+}
+
+// Fun fact fetch with text fit
+async function fetchFact() {
+  const factEl = document.getElementById("fact-text");
+  try {
+    const res = await fetch("https://uselessfacts.jsph.pl/api/v2/facts/random?language=en");
+    if (!res.ok) throw new Error("Fact fetch failed");
+    const data = await res.json();
+    factEl.textContent = data.text;
+    fitTextToBox(factEl, 18, 10);
+  } catch {
+    factEl.textContent = "Could not load a fun fact.";
+    fitTextToBox(factEl, 18, 10);
+  }
+}
+
+// Event listeners for refresh buttons
+document.getElementById("refreshWeather").addEventListener("click", fetchWeather);
+document.getElementById("refreshHoliday").addEventListener("click", fetchHolidays);
+document.getElementById("refreshFact").addEventListener("click", fetchFact);
+
+// Initial load
+fetchWeather();
+fetchHolidays();
+fetchFact();
+</script>
+
+</body>
+</html>
