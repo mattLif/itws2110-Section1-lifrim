@@ -1,0 +1,72 @@
+{
+  "foods": [
+    {
+      "name": "Chicken Teriyaki Bowl",
+      "description": "A savory Japanese-inspired bowl featuring grilled chicken glazed with sweet teriyaki sauce, served over steamed rice and mixed vegetables.",
+      "category": "Non-Vegetarian",
+      "cuisine": "Japanese",
+      "image_url": "resources/chicken-teriyaki.jpg",
+      "ingredients": [
+        "Chicken breast",
+        "Teriyaki sauce",
+        "White rice",
+        "Broccoli",
+        "Carrots",
+        "Sesame seeds",
+        "Green onions"
+      ],
+      "price": 12.99
+    },
+    {
+      "name": "General Tso's Chicken",
+      "description": "A popular Chinese-American dish featuring crispy fried chicken pieces coated in a tangy, sweet, and spicy sauce.",
+      "category": "Non-Vegetarian",
+      "cuisine": "Chinese",
+      "image_url": "resources/general-tsos-chicken.jpg",
+      "ingredients": [
+        "Chicken thigh",
+        "Soy sauce",
+        "Cornstarch",
+        "Garlic",
+        "Ginger",
+        "Rice vinegar",
+        "Chili flakes",
+        "Sugar"
+      ],
+      "price": 13.49
+    },
+    {
+      "name": "Steamed Pork Dumplings",
+      "description": "Tender dumplings filled with seasoned ground pork, cabbage, and scallions, steamed to perfection and served with soy dipping sauce.",
+      "category": "Non-Vegetarian",
+      "cuisine": "Chinese",
+      "image_url": "resources/pork-dumplings.jpg",
+      "ingredients": [
+        "Ground pork",
+        "Cabbage",
+        "Scallions",
+        "Soy sauce",
+        "Sesame oil",
+        "Ginger",
+        "Dumpling wrappers"
+      ],
+      "price": 9.99
+    },
+    {
+      "name": "Shrimp Tempura Sushi",
+      "description": "Crispy shrimp tempura rolled with rice, seaweed, and avocado, topped with a drizzle of eel sauce for a perfect crunch and flavor balance.",
+      "category": "Non-Vegetarian",
+      "cuisine": "Japanese",
+      "image_url": "resources/shrimp-tempura.jpg",
+      "ingredients": [
+        "Shrimp",
+        "Tempura batter",
+        "Sushi rice",
+        "Nori (seaweed)",
+        "Avocado",
+        "Eel sauce"
+      ],
+      "price": 11.49
+    }
+  ]
+}
