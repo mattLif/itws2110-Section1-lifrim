@@ -49,6 +49,9 @@ class Multiplication extends Operation {
 
 class Division extends Operation {
   public function operate() {
+    if ($this->operand_2 == 0) {
+        throw new Exception('Division by zero.');
+    }
     return $this->operand_1 / $this->operand_2;
   }
   public function getEquation() {
