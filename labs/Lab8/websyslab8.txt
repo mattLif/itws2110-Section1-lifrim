@@ -1,0 +1,61 @@
+===Database websyslab8
+
+== Table structure for table courses
+
+|------
+|Column|Type|Null|Default
+|------
+|//**crn**//|int(11)|No|
+|prefix|varchar(4)|No|
+|number|smallint(4)|No|
+|title|varchar(255)|No|
+|section|varchar(10)|Yes|NULL
+|year|int(4)|Yes|NULL
+== Dumping data for table courses
+
+|35257|CSCI|1200|Data Structures|01|2025
+|35955|CSCI|2200|Foundations of Computer Science|01|2025
+|38402|CSCI|2800|Computer Architecture &amp; OS|01|2025
+|73048|ITWS|2110|Web Systems Development|01|2025
+== Table structure for table grades
+
+|------
+|Column|Type|Null|Default
+|------
+|//**id**//|int(11)|No|
+|crn|int(11)|Yes|NULL
+|rin|int(11)|Yes|NULL
+|grade|int(3)|No|
+== Dumping data for table grades
+
+|1|35257|662045813|95
+|2|35257|662081897|88
+|3|35257|662082634|92
+|4|35955|662081897|85
+|5|35955|662091359|91
+|6|38402|662082634|89
+|7|38402|662045813|93
+|8|73048|662091359|87
+|9|73048|662081897|90
+|10|73048|662045813|94
+== Table structure for table students
+
+|------
+|Column|Type|Null|Default
+|------
+|//**rin**//|int(9)|No|
+|rcsID|char(7)|Yes|NULL
+|firstname|varchar(100)|No|
+|lastname|varchar(100)|No|
+|alias|varchar(100)|No|
+|phone|int(10)|Yes|NULL
+|street|varchar(255)|Yes|NULL
+|city|varchar(100)|Yes|NULL
+|state|char(2)|Yes|NULL
+|zip|int(5)|Yes|NULL
+== Dumping data for table students
+
+|662045813|durdet|Tyler|Durden|Narrator|1112223333|12 6th Ave|Troy|NY|12180
+|662081897|lifrim|Matthew|Lifrieri|Matt|1234567890|83 S Main St|New City|NY|10956
+|662082634|doej|John|Doe|JD|1002003000|99 College Dr|Troy|NY|12180
+|662091359|harves|Steve|Harvey|KB|2147483647|4110 Paces Ferry Rd|Atlanta|GA|30327
