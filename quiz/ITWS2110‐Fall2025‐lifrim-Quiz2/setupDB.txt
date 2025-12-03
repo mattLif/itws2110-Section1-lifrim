@@ -1,0 +1,156 @@
+-- phpMyAdmin SQL Dump
+-- version 5.2.1
+-- https://www.phpmyadmin.net/
+--
+-- Host: 127.0.0.1
+-- Generation Time: Dec 03, 2025 at 03:10 AM
+-- Server version: 10.4.32-MariaDB
+-- PHP Version: 8.2.12
+
+SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
+START TRANSACTION;
+SET time_zone = "+00:00";
+
+
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
+/*!40101 SET NAMES utf8mb4 */;
+
+--
+-- Database: `itws2110-fall2025-lifrim-quiz2`
+--
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projectmembership`
+--
+
+CREATE TABLE `projectmembership` (
+  `projectId` int(11) NOT NULL,
+  `memberId` varchar(50) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `projectmembership`
+--
+
+INSERT INTO `projectmembership` (`projectId`, `memberId`) VALUES
+(1, 'lifrim'),
+(1, 'moherb'),
+(1, 'thomar9'),
+(2, 'durdet'),
+(2, 'powerc'),
+(2, 'wickj'),
+(3, 'squars'),
+(3, 'starp'),
+(3, 'tentas'),
+(4, 'doej'),
+(4, 'einsta'),
+(4, 'simpsj');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `projects`
+--
+
+CREATE TABLE `projects` (
+  `projectId` int(11) NOT NULL,
+  `name` varchar(150) NOT NULL,
+  `description` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `projects`
+--
+
+INSERT INTO `projects` (`projectId`, `name`, `description`) VALUES
+(1, 'Apartment Search', 'A web app that takes current location data and finds the most ideal apartments to rent for the upcoming year. A user will be prompted to enter a price range, and the app will scan reviews of nearby apartments for rent to return an applicable list to the user.'),
+(2, 'Combat On Command', 'An online service supplying users with instructional videos on self-defense. Videos depict tutorials on optimal hand-to-hand combat techniques to help users better defend themselves in the event of an emergency.'),
+(3, 'Bikini Bottom Clean Up', 'A website dedicated to the betterment of Bikini Bottom through community involvement and fundraising. Users can upload posts advertising for volunteer events or send funds to included programs.'),
+(4, 'Physics Pro', 'An online calculator for solving complex physics problems. Users submit their prompt, and an advanced AI will analyze and answer said prompt.');
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `users`
+--
+
+CREATE TABLE `users` (
+  `userId` varchar(50) NOT NULL,
+  `firstName` varchar(100) NOT NULL,
+  `lastName` varchar(100) NOT NULL,
+  `nickName` varchar(100) DEFAULT NULL,
+  `passwordHash` varchar(255) NOT NULL,
+  `passwordSalt` varchar(255) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_unicode_ci;
+
+--
+-- Dumping data for table `users`
+--
+
+INSERT INTO `users` (`userId`, `firstName`, `lastName`, `nickName`, `passwordHash`, `passwordSalt`) VALUES
+('doej', 'John', 'Doe', 'Johnny', 'b6c8b13aabc937459f41963211f841f756ee90882719cda6f221305fe6abeacf', 'f1c1985213deb70513e66201df197e7c'),
+('durdet', 'Tyler', 'Durden', 'Narrator', 'f7f8221215a5065beabe0d121e2ea509fca08bfa1ef2721114e7c9ca5e8a58c7', '408233b8e719d12b6da7b62adbe999d0'),
+('einsta', 'Albert', 'Einstein', 'Al', '42a3e9a47c8486e3a9ea3f1664639901e332f08b3bb7e50b076ae909b0a92687', 'c48dc90d2429cecabb74bc29a051606d'),
+('lifrim', 'Matthew', 'Lifrieri', 'Matt', '6d54790d042b749b3938026c33c603d981f40a13ef7e2a7b8bbd094d3d4caf1c', '6504550d47de8f7aca7f4965ca0316ab'),
+('moherb', 'Braiden', 'Moher', 'B Man', 'b02f62c0f600007dce13e3e4b0bba93cf3372267b2f3db4ecaaaee793b7194ca', '5c91dfcb0e08eac255f384778f37f00e'),
+('powerc', 'Clutch', 'Powers', 'Dr. Powers', 'a7228a7966ead038b10c05499fbf280b420a0171d3cd90b660660c4c0e3d7232', 'd519824e00bef159b5bbaf69ad6b5814'),
+('simpsj', 'Homer', 'Simpson', 'Homey', '81903701432038ef1a37e6a3cf9d21ded912b55f5a2fbdefc8ed1e972e9c0e48', '05d07e663f2b7751aa3f85113c26bfb3'),
+('squars', 'Spongebob', 'Squarepants', 'Sponge', '6f5fe7cc5c024008907c0dad30e8335791b2e531afe460ae4d553f51642a4bf2', '2c39473891c66b0eca15b47e0b747227'),
+('starp', 'Patrick', 'Star', 'Pat', 'e885ae8b4091b09f510af926fe15c5eea3f2050c7322b3f84a9fe702706c2934', '6d1c7a750c657c3792e529dce2e4ad6a'),
+('tentas', 'Squidward', 'Tentacles', 'Squid', 'bad327635b8920c7f8abe8f2523586e72a7426027651005588629ab965c8c03d', '788f6be920a224037c81b112422ef138'),
+('thomar9', 'Ryan', 'Thomas', 'Ry', 'bd2e11a9011d475b0c4b950b55a322811f7a5025c59c9d9219d8fdad7f5ab08d', '8c61da13c7eb8d0247b1d962fdba17a3'),
+('wickj', 'John', 'Wick', 'Baba Yaga', '74979279c1f60d02048c6212f4b26eafd9b7482b1f8c9ffcbf9c1e181ed7ab34', 'd6741245fcb364e847e5895273d2bd0a');
+
+--
+-- Indexes for dumped tables
+--
+
+--
+-- Indexes for table `projectmembership`
+--
+ALTER TABLE `projectmembership`
+  ADD PRIMARY KEY (`projectId`,`memberId`),
+  ADD KEY `memberId` (`memberId`);
+
+--
+-- Indexes for table `projects`
+--
+ALTER TABLE `projects`
+  ADD PRIMARY KEY (`projectId`),
+  ADD UNIQUE KEY `name` (`name`);
+
+--
+-- Indexes for table `users`
+--
+ALTER TABLE `users`
+  ADD PRIMARY KEY (`userId`);
+
+--
+-- AUTO_INCREMENT for dumped tables
+--
+
+--
+-- AUTO_INCREMENT for table `projects`
+--
+ALTER TABLE `projects`
+  MODIFY `projectId` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=6;
+
+--
+-- Constraints for dumped tables
+--
+
+--
+-- Constraints for table `projectmembership`
+--
+ALTER TABLE `projectmembership`
+  ADD CONSTRAINT `projectmembership_ibfk_1` FOREIGN KEY (`projectId`) REFERENCES `projects` (`projectId`) ON DELETE CASCADE,
+  ADD CONSTRAINT `projectmembership_ibfk_2` FOREIGN KEY (`memberId`) REFERENCES `users` (`userId`) ON DELETE CASCADE;
+COMMIT;
+
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
