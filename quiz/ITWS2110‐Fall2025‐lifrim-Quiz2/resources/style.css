@@ -1,0 +1,149 @@
+body {
+    font-family: Arial, Helvetica, sans-serif;
+    margin: 0;
+    padding: 0;
+    background: #f4f6f9;
+    color: #333;
+}
+
+h1, h2, h3 {
+    font-weight: 600;
+    text-align: center;
+}
+
+a {
+    color: #2a70d6;
+    text-decoration: none;
+}
+
+a:hover {
+    text-decoration: underline;
+}
+
+.container {
+    width: 90%;
+    max-width: 650px;
+    margin: 40px auto;
+    background: white;
+    padding: 25px;
+    border-radius: 8px;
+    box-shadow: 0 3px 10px rgba(0,0,0,0.12);
+}
+
+form {
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+}
+
+label {
+    font-weight: 600;
+}
+
+input[type="text"],
+input[type="password"],
+textarea,
+select {
+    width: 100%;
+    padding: 10px;
+    border: 1px solid #ccc;
+    border-radius: 6px;
+    font-size: 14px;
+    box-sizing: border-box;
+}
+
+textarea {
+    resize: vertical;
+}
+
+button {
+    padding: 12px;
+    background-color: #2a70d6;
+    color: white;
+    border: none;
+    border-radius: 6px;
+    font-size: 15px;
+    font-weight: bold;
+    cursor: pointer;
+}
+
+button:hover {
+    background-color: #1e57ab;
+}
+
+.error {
+    background: #ffe5e5;
+    padding: 12px;
+    border: 1px solid #dd7777;
+    color: #b30000;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.success {
+    background: #e6ffe6;
+    padding: 12px;
+    border: 1px solid #7ac47a;
+    color: #2e7d32;
+    border-radius: 6px;
+    margin-bottom: 15px;
+}
+
+.project-page {
+    display: flex;
+    gap: 20px;
+    width: 95%;
+    max-width: 1200px;
+    margin: 20px auto;
+}
+
+.project-left {
+    flex: 1;
+}
+
+.project-right {
+    flex: 1;
+}
+
+.project-list {
+    max-height: 80vh;
+    overflow-y: auto;
+    padding-right: 10px;
+}
+
+.project {
+    border: 1px solid #ddd;
+    background: #fafafa;
+    padding: 12px 14px;
+    border-radius: 8px;
+    margin-bottom: 12px;
+}
+
+.project.new {
+    background-color: #e4ffe4;
+    border-color: #7ac47a;
+}
+
+@media(max-width: 800px) {
+    .project-page {
+        flex-direction: column;
+    }
+}
+
+.nav {
+    text-align: center;
+    margin-top: 45px;
+}
+
+.nav a {
+    padding: 10px 15px;
+    background: #2a70d6;
+    color: white;
+    border-radius: 6px;
+    margin: 0 5px;
+    font-weight: bold;
+}
+
+.nav a:hover {
+    background: #1e57ab;
+}
